@@ -1,5 +1,9 @@
 function [vStar, gammaStar] = SVM(X, y, C)
 
+#clear;
+
+#load dataset8.mat;
+
 x0 = []; %Starting point
 
 [numPoints, numCol] = size(X);
@@ -38,8 +42,8 @@ for i = 1: numPoints
 end
 
 %Right side of the constraint matrix
-A_ub = ones(numPoints, 1);
-A_lb = [];
+A_ub = [];
+A_lb = ones(numPoints, 1);
 
 b=[];
 
@@ -49,13 +53,15 @@ ub = [];
 %Lower bounds
 lb = zeros(numVar, 1);
 lb(1:numCol + 1) = -inf;
-
+#C = 1;
 %Objective function
-q = C * ones(numVar,1);
+
+q = [zeros(numCol + 1,1); C * ones(numPoints,1)];
 
 H = eye(403);
 H = [ones(rows(H), 1), H];
 H = [H; zeros(1, 404)];
 
 [vStar, gammaStar] = qp (x0, H, q, A, b, lb, ub, A_lb, A_in, A_ub);
+
 endfunction
