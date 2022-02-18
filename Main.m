@@ -1,35 +1,35 @@
-#clear;
+clear;
 
-load dataset8.mat;
+load dataset4.mat;
 [n,m] = size(X);
 
 C_Grid = [1, 10, 100, 1000];
-#[vStar, gammaStar] = SVM(X, y, C_Grid(1));
+[vStar, gammaStar] = SVM(X, y, C_Grid(1));
 
-correctPoints = 0;
-
-for i = 1:400
-  
-  if y(i) == +1 && (vStar'*X(i)) - gammaStar - 1  >= 0
-    correctPoints = correctPoints + 1;
-    disp(i)
-  endif
-  
-  if y(i) == -1 && (vStar'*X(i)) - gammaStar + 1  <= 0
-    correctPoints = correctPoints + 1;
-    disp(i)
-  endif
-  
-end
-
-correctPoints
-
-kFold10 = 0.9;
-
-randn("seed",44)
-rand("seed",44)
-
-index = randperm(n);
+##correctPoints = 0;
+##
+##for i = 1:400
+##  
+##  if y(i) == +1 && (vStar'*X(i)) - gammaStar - 1  >= 0
+##    correctPoints = correctPoints + 1;
+##    disp(i)
+##  endif
+##  
+##  if y(i) == -1 && (vStar'*X(i)) - gammaStar + 1  <= 0
+##    correctPoints = correctPoints + 1;
+##    disp(i)
+##  endif
+##  
+##end
+##
+##correctPoints
+##
+##kFold10 = 0.9;
+##
+##randn("seed",44)
+##rand("seed",44)
+##
+##index = randperm(n);
 
 ##for i = 1:10
 ##  if i == 1

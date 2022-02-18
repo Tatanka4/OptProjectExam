@@ -58,10 +58,15 @@ lb(1:numCol + 1) = -inf;
 
 q = [zeros(numCol + 1,1); C * ones(numPoints,1)];
 
-H = eye(403);
-H = [ones(rows(H), 1), H];
-H = [H; zeros(1, 404)];
+H = eye(numVar);
+##H = [ones(rows(H), 1), H];
+##H = [H; zeros(1, numVar)];
 
-[vStar, gammaStar] = qp (x0, H, q, A, b, lb, ub, A_lb, A_in, A_ub);
+[xStar, fStar] = qp (x0, H, q, A, b, lb, ub, A_lb, A_in, A_ub);
+
+vStar = xStar(1:numCol);
+gammaStar = xStar(numCol+1);
+
+drawPicture(setA, setB, vStar, gammaStar, X);
 
 endfunction
