@@ -1,17 +1,7 @@
-function [vStar, gammaStar, performanceIndicators] = SVM(X, y, C, draw)
-
-#clear;
-
-#load dataset8.mat;
-
-x0 = []; %Starting point
+function [performanceIndicators] = SVM_Prediction(X, y, draw, vStar, gammaStar)
 
 [numPoints, numCol] = size(X);
 numVar = numCol + 1 + numPoints; %n + 1 + m + k
-
-A_in = zeros(numPoints, numVar); %Constraint matrix
-
-A = [];
 
 setA = []; %Array for the set A points
 setB = []; %Array for the set B points
@@ -26,45 +16,13 @@ for i = 1: numPoints
             X(i,:)]; %append to the set B the point
   end
   
-  %Filling the constraint matrix
-  
-  A_in(i,1:numCol) = y(i) * X(i,:); %v
-  A_in(i,numCol+1) = -y(i); %gamma
-  A_in(i,numCol+1+i) = 1; %phi
-  
 end
-
-%Right side of the constraint matrix
-A_ub = [];
-A_lb = ones(numPoints, 1);
-
-b=[];
-
-%Upper bounds
-ub = [];
-
-%Lower bounds
-lb = zeros(numVar, 1);
-lb(1:numCol + 1) = -inf;
-#C = 1;
-%Objective function
-
-q = [zeros(numCol + 1,1); C * ones(numPoints,1)];
-
-H = eye(numVar);
-##H = [ones(rows(H), 1), H];
-##H = [H; zeros(1, numVar)];
-
-[xStar, fStar] = qp (x0, H, q, A, b, lb, ub, A_lb, A_in, A_ub);
-
-vStar = xStar(1:numCol);
-gammaStar = xStar(numCol+1);
 
 if draw == 1
   drawPicture(setA, setB, vStar, gammaStar, X);
 endif
 
-disp("TRAINING SET PERFORMANCE INDICATOR");
+disp("TEST SET PERFORMANCE INDICATOR");
 sensitivity = calculateSensitivity(setA, vStar, gammaStar)
 specificity = calculateSpecificity(setB, vStar, gammaStar)
 accuracy = calculateCorrectness(X,y,vStar,gammaStar)
