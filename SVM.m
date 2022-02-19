@@ -1,4 +1,4 @@
-function [vStar, gammaStar] = SVM(X, y, C)
+function [vStar, gammaStar] = SVM(X, y, C, draw)
 
 #clear;
 
@@ -64,8 +64,9 @@ H = eye(numVar);
 
 vStar = xStar(1:numCol);
 gammaStar = xStar(numCol+1);
-
-drawPicture(setA, setB, vStar, gammaStar, X);
+if draw == 1
+  drawPicture(setA, setB, vStar, gammaStar, X);
+endif
 
 sensitivity = calculateSensitivity(setA, vStar, gammaStar)
 specificity = calculateSpecificity(setB, vStar, gammaStar)
