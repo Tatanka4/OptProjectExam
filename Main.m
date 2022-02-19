@@ -69,10 +69,11 @@ for i = 1:10
     disp(cStar_index)
   endfor
   [vStar, gammaStar, performanceIndicatorsTrain] = SVM(xTrain, yTrain, C_Grid(cStar_index),1);
+  #pause()
   [performanceIndicatorsTest] = SVM_Prediction(xTest, yTest, 1, vStar, gammaStar);
+  #pause()
   train_avg_metrics = train_avg_metrics + performanceIndicatorsTrain;
   test_avg_metrics = test_avg_metrics + performanceIndicatorsTest;
-  pause()
 endfor
 
 train_avg_metrics = train_avg_metrics
