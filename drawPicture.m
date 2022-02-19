@@ -10,10 +10,15 @@ zzMin = min(dataset(:,3));
 zzMax = max(dataset(:,3));
 
 clf;
+if setA > 0
+  scatter3(setA(:,1), setA(:,2), setA(:,3), 'b','o','filled');
+endif
 
-scatter3(setA(:,1), setA(:,2), setA(:,3), 'b','o','filled');
 hold on;
-scatter3(setB(:,1), setB(:,2), setB(:,3), 'r','o','filled');
+
+if setB > 0
+  scatter3(setB(:,1), setB(:,2), setB(:,3), 'r','o','filled');
+endif
 
 [X,Y] = meshgrid(xxMin:0.1:xxMax, yyMin:0.5:yyMax);
 Z = (gamma - v(1)*X - v(2)*Y) / v(3);
