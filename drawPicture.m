@@ -19,13 +19,13 @@ scatter3(setB(:,1), setB(:,2), setB(:,3), 'r','o','filled');
 Z = (gamma - v(1)*X - v(2)*Y) / v(3);
 surf(X,Y,Z);
 
-##hold on;
-##Z = (gamma + 1 - v(1)*X - v(2)*Y) / v(3);
-##surf(X,Y,Z);
-##
-##hold on;
-##Z = (gamma - 1 - v(1)*X - v(2)*Y) / v(3);
-##surf(X,Y,Z);
+hold on;
+Z = (gamma + 1 - v(1)*X - v(2)*Y) / v(3);
+surf(X,Y,Z);
+
+hold on;
+Z = (gamma - 1 - v(1)*X - v(2)*Y) / v(3);
+surf(X,Y,Z);
 
 
   

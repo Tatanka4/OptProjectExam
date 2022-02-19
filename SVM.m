@@ -37,8 +37,6 @@ for i = 1: numPoints
   A_in(i,numCol+1) = -y(i); %gamma
   A_in(i,numCol+1+i) = 1; %phi
   
-  cType(i) = "L"; 
-  
 end
 
 %Right side of the constraint matrix
@@ -68,5 +66,11 @@ vStar = xStar(1:numCol);
 gammaStar = xStar(numCol+1);
 
 drawPicture(setA, setB, vStar, gammaStar, X);
+
+sensitivity = calculateSensitivity(setA, vStar, gammaStar)
+specificity = calculateSpecificity(setB, vStar, gammaStar)
+accuracy = calculateCorrectness(X,y,vStar,gammaStar)
+precision = calculatePrecision(setA,setB,vStar,gammaStar)
+fScore = 2 * (sensitivity * precision) / (sensitivity + precision)
 
 endfunction
