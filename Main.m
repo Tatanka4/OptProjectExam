@@ -76,5 +76,5 @@ for i = 1:10
   test_avg_metrics = test_avg_metrics + performanceIndicatorsTest;
 endfor
 
-train_avg_metrics = train_avg_metrics
-test_avg_metrics = test_avg_metrics
+train_avg_metrics = train_avg_metrics * 0.1
+test_avg_metrics = test_avg_metrics * 0.1
