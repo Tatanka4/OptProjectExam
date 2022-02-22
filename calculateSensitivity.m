@@ -1,3 +1,8 @@
+%This function calculates the sensitivity, also called he true positive rate or 
+%recall. It measures the proportion of positive points correctly identified.
+
+%A = Set of points labelled +1
+%v and gamma = vStar and gammaStar
 function [sensitivity] = calculateSensitivity(A, v, gamma)
   
   correctPoints = 0;

@@ -1,8 +1,9 @@
-function [vStar, gammaStar, performanceIndicators] = SVM(X, y, C, draw)
-
-#clear;
-
-#load dataset8.mat;
+%Given a set, the SVM calculates v and gamma in order to give us an hyperplane
+%X = Dataset
+%y = Class labels
+%C = Weight
+%draw (0,1) = If we want to draw the hyperplanes
+function [vStar, gammaStar, performanceIndicators] = SVM(X, y, C, draw, labelTitle = "")
 
 x0 = []; %Starting point
 
@@ -11,7 +12,7 @@ numVar = numCol + 1 + numPoints; %n + 1 + m + k
 
 A_in = zeros(numPoints, numVar); %Constraint matrix
 
-A = [];
+A = []; %Empty because no equality constraint
 
 setA = []; %Array for the set A points
 setB = []; %Array for the set B points
@@ -38,7 +39,7 @@ end
 A_ub = [];
 A_lb = ones(numPoints, 1);
 
-b=[];
+b=[]; %Empty because no equality constraint
 
 %Upper bounds
 ub = [];
@@ -46,14 +47,15 @@ ub = [];
 %Lower bounds
 lb = zeros(numVar, 1);
 lb(1:numCol + 1) = -inf;
-#C = 1;
+
 %Objective function
 
-q = [zeros(numCol + 1,1); C * ones(numPoints,1)];
-
+%Hessian matrix
 H = eye(numVar-1);
 H = [ones(rows(H), 1), H];
 H = [H; zeros(1, numVar)];
+
+q = [zeros(numCol + 1,1); C * ones(numPoints,1)]; %Vector of the costs
 
 [xStar, fStar] = qp (x0, H, q, A, b, lb, ub, A_lb, A_in, A_ub);
 
@@ -61,8 +63,10 @@ vStar = xStar(1:numCol);
 gammaStar = xStar(numCol+1);
 
 if draw == 1
-  drawPicture(setA, setB, vStar, gammaStar, X);
+  drawPicture(setA, setB, vStar, gammaStar, X, labelTitle);
 endif
+
+%Performance indicators process
 
 disp("TRAINING SET PERFORMANCE INDICATOR");
 sensitivity = calculateSensitivity(setA, vStar, gammaStar)

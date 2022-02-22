@@ -1,4 +1,9 @@
-function [performanceIndicators] = SVM_Prediction(X, y, draw, vStar, gammaStar)
+%Given a set to preditct, this function looks if the set is well predicted
+%X = Dataset
+%y = Class labels
+%C = Weight
+%draw (0,1) = If we want to draw the hyperplanes
+function [performanceIndicators] = SVM_Prediction(X, y, draw, vStar, gammaStar, labelTitle = "")
 
 [numPoints, numCol] = size(X);
 numVar = numCol + 1 + numPoints; %n + 1 + m + k
@@ -19,8 +24,10 @@ for i = 1: numPoints
 end
 
 if draw == 1
-  drawPicture(setA, setB, vStar, gammaStar, X);
+  drawPicture(setA, setB, vStar, gammaStar, X, labelTitle);
 endif
+
+%Performance indicators process
 
 disp("TEST SET PERFORMANCE INDICATOR");
 sensitivity = calculateSensitivity(setA, vStar, gammaStar)

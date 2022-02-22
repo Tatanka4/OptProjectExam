@@ -1,3 +1,9 @@
+%This function calculates the precision. 
+%It will be done on testing and training set.
+
+%A = Set of points labelled +1
+%B = Set of points labelled -1
+%v and gamma = vStar and gammaStar
 function [precision] = calculatePrecision(A, B, v, gamma)
   
   correctPointsA = 0;

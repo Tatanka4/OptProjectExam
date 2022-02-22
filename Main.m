@@ -6,6 +6,8 @@ load dataset8.mat;
 C_Grid = [1, 10, 100, 1000];
 cStar_index = intmax();
 
+%KFOLD and Model Selection Process
+
 train_avg_metrics= zeros(1,5);
 test_avg_metrics= zeros(1,5);
 
@@ -17,7 +19,7 @@ rand("seed",44)
 
 index = randperm(n);
 
-for i = 1:10
+for i = 1:1
   if i == 1
     xTrain = X(index(round((i)*(1-kFold10)*n)+1:n),:);
     yTrain = y(index(round((i)*(1-kFold10)*n)+1:n),:);
@@ -36,7 +38,8 @@ for i = 1:10
     xTest = X(round(i*(1-kFold10)*n)+1:round((i+1)*(1-kFold10)*n),:);
     yTest = y(round(i*(1-kFold10)*n)+1:round((i+1)*(1-kFold10)*n),:);
   endif
-  for j = 1:5
+  for j = 1:1
+    printf("MODEL SELECTION, KFOLD5\n Running FOLD number: %d \n", j);
     n1 = size(xTrain)(1);
     index1 = randperm(n1);
     if j == 1
@@ -66,7 +69,8 @@ for i = 1:10
     cStar_index = find(c_avg_accuracy==min(c_avg_accuracy))(1);
     disp(cStar_index)
   endfor
-  [vStar, gammaStar, performanceIndicatorsTrain] = SVM(xTrain, yTrain, C_Grid(cStar_index),1);
+  printf("KFOLD10\n Running FOLD number: %d \n", i);
+  [vStar, gammaStar, performanceIndicatorsTrain] = SVM(xTrain, yTrain, C_Grid(cStar_index),1,strcat("foldNumber", num2str(i)));
   #pause()
   [performanceIndicatorsTest] = SVM_Prediction(xTest, yTest, 0, vStar, gammaStar);
   #pause()
