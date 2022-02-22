@@ -73,8 +73,11 @@ sensitivity = calculateSensitivity(setA, vStar, gammaStar)
 specificity = calculateSpecificity(setB, vStar, gammaStar)
 accuracy = calculateCorrectness(X,y,vStar,gammaStar)
 precision = calculatePrecision(setA,setB,vStar,gammaStar)
-fScore = 2 * (sensitivity * precision) / (sensitivity + precision)
-
+fScore = 0;
+if sensitivity > 0 || precision > 0
+  fScore = 2 * (sensitivity * precision) / (sensitivity + precision)
+endif
+fScore
 performanceIndicators = [sensitivity, specificity, accuracy, precision, fScore];
 
 endfunction

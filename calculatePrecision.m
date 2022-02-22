@@ -29,6 +29,10 @@ function [precision] = calculatePrecision(A, B, v, gamma)
     endfor
   endif
 
-  precision = correctPointsA / (correctPointsA + missclassifiedPointsB);
+  precision = 0;
+  if correctPointsA > 0 || missclassifiedPointsB > 0
+    precision = correctPointsA / (correctPointsA + missclassifiedPointsB);
+  endif
+  
   
 endfunction
