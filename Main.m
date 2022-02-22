@@ -5,9 +5,7 @@ load dataset8.mat;
 
 C_Grid = [1, 10, 100, 1000];
 cStar_index = intmax();
-#[vStar, gammaStar] = SVM(X, y, C_Grid(1));
 
-#correctPoints = countCorrectPoints(X, y, vStar, gammaStar);
 train_avg_metrics= zeros(1,5);
 test_avg_metrics= zeros(1,5);
 
@@ -70,7 +68,7 @@ for i = 1:10
   endfor
   [vStar, gammaStar, performanceIndicatorsTrain] = SVM(xTrain, yTrain, C_Grid(cStar_index),1);
   #pause()
-  [performanceIndicatorsTest] = SVM_Prediction(xTest, yTest, 1, vStar, gammaStar);
+  [performanceIndicatorsTest] = SVM_Prediction(xTest, yTest, 0, vStar, gammaStar);
   #pause()
   train_avg_metrics = train_avg_metrics + performanceIndicatorsTrain;
   test_avg_metrics = test_avg_metrics + performanceIndicatorsTest;

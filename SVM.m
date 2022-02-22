@@ -51,9 +51,9 @@ lb(1:numCol + 1) = -inf;
 
 q = [zeros(numCol + 1,1); C * ones(numPoints,1)];
 
-H = eye(numVar);
-##H = [ones(rows(H), 1), H];
-##H = [H; zeros(1, numVar)];
+H = eye(numVar-1);
+H = [ones(rows(H), 1), H];
+H = [H; zeros(1, numVar)];
 
 [xStar, fStar] = qp (x0, H, q, A, b, lb, ub, A_lb, A_in, A_ub);
 
